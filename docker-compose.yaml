@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  django:
+    build: .
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_DB=django.db.backends.postgresql
+      - DB_NAME=compose
+      - DB_USER=postgres
+      - DB_PASSWORD=1
+      - DB_PORT=5432
+      - DB_HOST=data_db
+      - AWS_ACCESS_KEY_ID=jfdisjfsidjfsidjf
+      - AWS_SECRET_ACCESS_KEY=fjisdtjirtjirg
+    depends_on:
+      - data_db
+
+  data_db:
+    image: postgres:alpine3.17
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=compose
+      - POSTGRES_PASSWORD=1
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+      - "9090:9090"
+    environment:
+      - MINIO_ACCESS_KEY=jfdisjfsidjfsidjf
+      - MINIO_SECRET_KEY=fjisdtjirtjirg
+    command: server /export --console-address :9001
+
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      apk add nc &&
+      while ! nc -z minio 9000; do echo 'Wait minio to startup...' && sleep 0.1; done; sleep 5 &&
+      /usr/bin/mc config host add myminio http://minio:9000 jfdisjfsidjfsidjf fjisdtjirtjirg;
+      /usr/bin/mc mb myminio/my-local-bucket;
+      /usr/bin/mc policy download myminio/my-local-bucket;
+      exit 0;
+      "
+
+volumes:
+  pgdata:
