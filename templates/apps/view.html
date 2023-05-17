@@ -1,0 +1,56 @@
+{% extends "admin/change_form.html" %}
+
+{% block field_sets %}
+    {% for fieldset in adminform %}
+        <fieldset class="module aligned {{ fieldset.classes }}">
+            {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
+            {% if fieldset.description %}<div class="description">{{ fieldset.description|safe }}</div>{% endif %}
+            {% for line in fieldset %}
+                {% for field in line %}
+                    {% if field.is_hidden %}
+                        {{ field.field }}
+                    {% else %}
+                        <div climageass="form-row{% if field.field.name == 'image' %} custom-image-field{% endif %} {% if field.errors %}errors{% endif %} {{ field.field.name }}">
+                            {{ field.label_tag }}
+                            <div class="form-row-controls">
+                              {% if field.field.name not in 'picture pdf' %}
+                                {{ field.field }}
+                              {% endif %}
+                                {% if field.field.name == 'picture' %}
+                                    {% if original %}  <!-- Only modify the preview link for existing objects -->
+                                        {% if field.field.value %}
+                                              <p class="file-upload">Currently: <a href="{{ image_url }}">{{ field.field.value }}</a><br>
+                                          Change:
+                                          <input type="file" name="picture" accept="image/*" id="id_picture"></p>
+                                        {% else %}
+                                            No image available
+                                        {% endif %}
+                                    {% else %}
+                                        {{ field.field }}
+                                    {% endif %}
+                                {% elif field.field.name == 'pdf' %}
+                                    {% if original %}  <!-- Only modify the preview link for existing objects -->
+                                        {% if field.field.value %}
+                                            <p class="file-upload">Currently: <a href="{{ file_url }}">{{ field.field.value }}</a><br>
+                                            Change:
+                                            <input type="file" name="pdf" id="id_pdf"></p>
+                                        {% else %}
+                                            No image available
+                                        {% endif %}
+                                    {% else %}
+                                        {{ field.field }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ field.errors.as_ul }}
+                                    {% if field.field.help_text %}
+                                        <p class="help">{{ field.field.help_text|safe }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </fieldset>
+    {% endfor %}
+{% endblock %}
