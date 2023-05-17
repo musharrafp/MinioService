@@ -1,0 +1,26 @@
+django
+pg
+minio
+
+task
+1. minio ga saqlash (adminkasi ixtiyoriy)
+2. eski malumotlarni arxivlash (1Gb fayl ixtiyoriy) 🟢
+
+docker based
+django admin
+
+document(model)
+name
+image(jpg)
+file(pdf)
+
+minio
+psql function
+
+
+ARXIV qilish
+oxirgi 6oy dan olgingi malumotlarni
+(huddi shunaqa nomli tablega migrate [shunaqa function yozish kk]{har kuni ishlaydigan qilish kk})
+
+http://127.0.0.1:9000/my-local-bucket/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_%D0%BE%D1%82_2023-05-15_12-56-24.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=NZGGODKIGR1XPGYIZG9M%2F20230516%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230516T163551Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJOWkdHT0RLSUdSMVhQR1lJWkc5TSIsImV4cCI6MTY4NDI5ODA3MSwicGFyZW50IjoiMDc2MjE0YjNjNDQwNTg0YSJ9.ZB6EsD-b1LNBl7C_jIGqDaGofQH-4FMxsMeE3z1SBOaUlukPykE67jkvV6LQrK1JxzvjWEBt_pXwxasnfKQZzw&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=ab6334dc2bf8acc98ea96d35fa65a21d1d6a6b1b1b7bd23599e87003ef76b483
+http://minio:9000/my-local-bucket/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_%D0%BE%D1%82_2023-05-15_12-56-24.png?AWSAccessKeyId=076214b3c440584a&Signature=mRlY9eZV%2FZtsbDg098i6knyctnk%3D&Expires=1684258504
